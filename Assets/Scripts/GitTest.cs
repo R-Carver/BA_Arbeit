@@ -8,11 +8,6 @@ public class GitTest : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-	//Just some Test
+	//Changed the text and removed the update function
 }
