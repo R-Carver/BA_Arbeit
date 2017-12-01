@@ -42,9 +42,12 @@ public class Action_GetFood : MonoBehaviour {
     private void OnTargetReached(){
 
         if(this.enabled == false){
+            Debug.Log("In Action_GetFood OnTargetReached");
 			return;
 		}
         //TODO: Eat the food
+        Destroy(food.gameObject);
+
         //For now just mark that the action is done 
         foodFound = false;
         cbActionIsDone();

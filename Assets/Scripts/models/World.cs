@@ -35,7 +35,7 @@ public class World{
 		for (var x = 0; x < Width; x++) {
 			for (int y = 0; y < Height; y++)
 			{	
-				if(Random.Range(0f,1f) > 0.9f)
+				if(Random.Range(0f,1f) > 0.97f)
 					food.Add(new Food(x, y, 1));
 			}
 		}

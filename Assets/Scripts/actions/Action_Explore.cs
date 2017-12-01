@@ -17,6 +17,10 @@ public class Action_Explore : MonoBehaviour {
 	//this makes sure that the exploration concentrates on a certain area for a while
 	float alpha = 1f;
 
+	//Call this callback when getting the food is finished
+    Action cbActionIsDone;
+
+
 	// Use this for initialization
 	void Start () {	
 
@@ -26,7 +30,9 @@ public class Action_Explore : MonoBehaviour {
 
         target = new GameObject();
 		//we want to know when the target is reached, so we can set a new Destination
+		//FIXME: This one should actually be called on Enable
         movController.RegisterTargetReachedCallback(setNewDestination);
+		movController.RegisterTargetReachedCallback(OnTargetReached);
 	}
 	
 	// Update is called once per frame
@@ -37,6 +43,10 @@ public class Action_Explore : MonoBehaviour {
 	void setNewDestination(){
 
 		if(this.enabled == false){
+
+			//has to be called again some times, because it can be called to early and
+			//isnt enabled yet
+			Invoke("setNewDestination", 0.5f);
 			return;
 		}
 		//set destination to something in the range of the explorable area
@@ -56,4 +66,23 @@ public class Action_Explore : MonoBehaviour {
 			alpha = 1;
 		}
 	}
+
+	private void OnTargetReached(){
+
+        if(this.enabled == false){
+			return;
+		}
+
+        //For now just mark that the action is done 
+        cbActionIsDone();
+        Debug.Log("Action Explore is done");
+    }
+
+	public void RegisterActionIsDoneCallback(Action callback){
+        cbActionIsDone += callback;
+    }
+
+    public void UnRegisterActionIsDoneCallback(Action callback){
+        cbActionIsDone-= callback;
+    }
 }

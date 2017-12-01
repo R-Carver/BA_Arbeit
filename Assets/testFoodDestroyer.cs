@@ -6,7 +6,7 @@ public class testFoodDestroyer : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll){
 
-		Debug.Log("Collision");
-		Destroy(gameObject);
+		//Debug.Log("Collision");
+		//Destroy(gameObject);
 	}
 }

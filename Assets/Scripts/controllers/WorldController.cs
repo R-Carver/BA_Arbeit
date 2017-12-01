@@ -46,6 +46,9 @@ public class WorldController : MonoBehaviour {
 
 	private void InitMomo(){
 
-		Instantiate(momoPrefab, new Vector3(5,5,0), Quaternion.identity);
+		Transform momo = Instantiate(momoPrefab, new Vector3(5,5,0), Quaternion.identity);
+		GameObject goMomo = momo.gameObject;
+
+		goMomo.name = "Momo";
 	}
 }

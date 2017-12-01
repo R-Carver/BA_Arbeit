@@ -6,14 +6,14 @@ using Pathfinding;
 
 public class MovementController : MonoBehaviour {
 
-	AIPath myAIPath;
+	public AIPath myAIPath{get; protected set;}
 	GameObject targetTransform;
 
 	//store the size of the explorable area
 	public float gridX{get; protected set;}
 	public float gridY{get; protected set;}
 
-    bool targetReached;
+    public bool targetReached{get; protected set;}
 
     Action cbTargetReached;
 
@@ -43,9 +43,13 @@ public class MovementController : MonoBehaviour {
 	}
 
 	void isTargetReached(){
-		if(((myAIPath.target.position - transform.position).magnitude < 0.2f)){
+		if(((myAIPath.target.position - transform.position).magnitude < 0.4f)){
 			if(targetReached == false){
 				Debug.Log("Target Reached");
+	
+				//Target was reached so set the target to null
+				myAIPath.target = null;
+
 				cbTargetReached();
 			}
 			targetReached = true;

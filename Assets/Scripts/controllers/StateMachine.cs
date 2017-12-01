@@ -14,7 +14,7 @@ public class StateMachine : MonoBehaviour {
 			DecisionState oldState = currentState;
 			currentState = value;
 			if(cbDecisionStateChanged != null){
-				Debug.Log("State was changed");
+				//Debug.Log("State was changed");
 				cbDecisionStateChanged(this.currentState, oldState);
 			}
 		}
@@ -34,7 +34,7 @@ public class StateMachine : MonoBehaviour {
 	//true if the agent is following some action at the moment,
 	//false only for the short moment after completing some action
 	//maybe also some idle state might make sense here
-	private bool hasAction;
+	public bool hasAction{get; protected set;}
 
 	//Call this function when the Decisionstate of the Momo is chagned
 	//The Callback needs the old state to disable the old action and the new state
@@ -52,10 +52,10 @@ public class StateMachine : MonoBehaviour {
 		action_GF = GetComponent<Action_GetFood>();
 		
 		action_GF.RegisterActionIsDoneCallback(OnActionFinished);
+		action_Ex.RegisterActionIsDoneCallback(OnActionFinished);
 
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 
 		//colliders that get into the vision radius of this character
@@ -64,19 +64,23 @@ public class StateMachine : MonoBehaviour {
 		//only food colliders in the vision readius
 		food = Physics2D.OverlapCircle(this.transform.position, visionRadius, LayerMask.GetMask("FoodLayer"));
 		
+		//Debug.Log("See food: " + (food != null).ToString());
+		//Debug.Log("hasAction expected false: " + hasAction);
 		//here the actual state machine is implemented
 		if(food != null && hasAction == false){
+			Debug.Log("Statemachine FixedUpdate");
 			CurrentState = DecisionState.GetFood;
 			hasAction = true;
 		}else if(hasAction == false){
 			CurrentState = DecisionState.Explore;
-			hasAction = true;
+			//hasAction = true;
 		}
 		
 	}
 
 	private void OnActionFinished(){
 		
+		Debug.Log("StateMachine OnActionFinished is called");
 		hasAction = false;
 	}
 
