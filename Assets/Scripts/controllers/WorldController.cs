@@ -8,8 +8,11 @@ public class WorldController : MonoBehaviour {
 
 	public World world{get; protected set;}
 
-	public Transform foodPrefab;
+	public Transform redFoodPrefab;
+	public Transform greenFoodPrefab;
 	public Transform momoPrefab;
+
+	Dictionary<GameObject, Food> foodGameObjects;
 
 	void OnEnable(){
 		if(Instance != null){
@@ -22,6 +25,9 @@ public class WorldController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		foodGameObjects = new Dictionary<GameObject, Food>();
+
 		InitFood();
 		InitMomo();
 	}
@@ -38,8 +44,19 @@ public class WorldController : MonoBehaviour {
 		foodParent.transform.position = new Vector3(0f, 0f, 0f);
 
 		foreach (Food food in world.food)
-		{
-			Transform food_go = Instantiate(foodPrefab, new Vector3(food.XPos, food.YPos, 0f), Quaternion.identity);
+		{	
+			Transform food_go;
+
+			if(food.sort == Food.FoodSort.green){
+
+				food_go = Instantiate(greenFoodPrefab, new Vector3(food.XPos, food.YPos, 0f), Quaternion.identity);
+			}else{
+
+				food_go = Instantiate(redFoodPrefab, new Vector3(food.XPos, food.YPos, 0f), Quaternion.identity);
+			}
+			
+			//Add the newly created food to the Dictionary
+			foodGameObjects.Add(food_go.gameObject, food);
 			food_go.parent = foodParent.transform;
 		}
 	}
@@ -50,5 +67,10 @@ public class WorldController : MonoBehaviour {
 		GameObject goMomo = momo.gameObject;
 
 		goMomo.name = "Momo";
+	}
+
+	public Food getFoodfromGo(GameObject food_go){
+
+		return foodGameObjects[food_go];
 	}
 }

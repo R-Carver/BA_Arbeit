@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212595145059596166}
   - component: {fileID: 58599690598531032}
   - component: {fileID: 114352930279464514}
-  m_Layer: 11
-  m_Name: food_black
+  m_Layer: 10
+  m_Name: food_green
   m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b5217322c1352a54cba28353b20d43d2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c533e98416f97fe48af7c3f299b77b3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

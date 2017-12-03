@@ -50,20 +50,23 @@ public class Action_Explore : MonoBehaviour {
 			return;
 		}
 		//set destination to something in the range of the explorable area
-		float targetX = alpha * (UnityEngine.Random.Range(0,gridX));
-		float targetY = alpha * (UnityEngine.Random.Range(0,gridY));
+		float targetX = /*alpha * */(float)(UnityEngine.Random.Range(0,gridX));
+		float targetY = /*alpha * */(float)(UnityEngine.Random.Range(0,gridY));
 		target.transform.position = new Vector3(targetX, targetY, 0);
 		//Debug.Log("Destination vector: " + targetTransform.transform.position);
 
 		movController.setNewDestination(target.transform);
 		//Debug.Log("AI Target: " + myAIPath.target.position);
 
+		//FIXME: Alpha is turned of for now because after the world was shiftet by
+		//some offset it keeps making the numbers small and therefore returning 
+		//values close to the lower left corner
 		//adjust alpha to let the agent explore destinations close to the current target
 		if(alpha > 0.2){
 			alpha -= 0.2f;
 		}else{
 			//if alpha is to small reset it to 1, so a new reagion will be explored
-			alpha = 1;
+			alpha = 1f;
 		}
 	}
 

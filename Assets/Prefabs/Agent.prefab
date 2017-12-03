@@ -209,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionRadius: 2
   food: {fileID: 0}
+  badFood: {fileID: 4555379208211962, guid: 73806fb749116744091428021e18bdbb, type: 2}
 --- !u!114 &114718683010538618
 MonoBehaviour:
   m_ObjectHideFlags: 1

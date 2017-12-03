@@ -64,11 +64,13 @@ public class StateMachine : MonoBehaviour {
 		//only food colliders in the vision readius
 		food = Physics2D.OverlapCircle(this.transform.position, visionRadius, LayerMask.GetMask("FoodLayer"));
 		
-		//Debug.Log("See food: " + (food != null).ToString());
-		//Debug.Log("hasAction expected false: " + hasAction);
 		//here the actual state machine is implemented
 		if(food != null && hasAction == false){
-			Debug.Log("Statemachine FixedUpdate");
+			Debug.Log("Statemachine FixedUpdate Food found");
+			
+			//set the food in the foodAction
+			action_GF.food = food;
+			
 			CurrentState = DecisionState.GetFood;
 			hasAction = true;
 		}else if(hasAction == false){

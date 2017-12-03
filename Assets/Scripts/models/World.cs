@@ -32,11 +32,25 @@ public class World{
 
 	private void GenerateFood(){
 
-		for (var x = 0; x < Width; x++) {
-			for (int y = 0; y < Height; y++)
+		//offset by one to the middle because the pathfinding grid doesnt touch the
+		//borders
+		for (var x = 1; x < Width-1; x++) {
+			for (int y = 1; y < Height-1; y++)
 			{	
-				if(Random.Range(0f,1f) > 0.97f)
-					food.Add(new Food(x, y, 1));
+
+				if(Random.Range(0f,1f) > 0.87f)
+				{
+					//Choose random sort of generated food
+					if(Random.Range(0,2) > 0){
+
+						food.Add(new Food(x, y, 1, Food.FoodSort.green));
+					}else{
+
+						food.Add(new Food(x, y, 0, Food.FoodSort.red));
+					}
+					
+				}
+					
 			}
 		}
 	}

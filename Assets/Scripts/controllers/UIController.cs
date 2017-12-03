@@ -12,9 +12,15 @@ public class UIController : MonoBehaviour {
 	Text debug3;
 	Text debug4;
 	Text debug5;
+	Text debug6;
+	Text debug7;
+	Text debug8;
+	Text debug9;
 	
 	MovementController mov;
 	StateMachine dfa;
+	Action_GetFood action_GetFood;
+	QLearner qLearner;
 
 	// Use this for initialization
 	void Start () {
@@ -37,7 +43,12 @@ public class UIController : MonoBehaviour {
 		UpdateDebug1();
 		UpdateDebug2();
 		UpdateDebug3();
+		UpdateDebug4();
 		UpdateDebug5();
+		UpdateDebug6();
+		UpdateDebug7();
+		UpdateDebug8();
+		UpdateDebug9();
 	}
 
 //Update the text fields ==============================================================================
@@ -69,12 +80,60 @@ public class UIController : MonoBehaviour {
 		}
 	}
 
+	private void UpdateDebug4(){
+
+		//Currently: MOV.AIPATH.TARGET
+		if(mov.myAIPath.target != null ){
+			debug4.text = "A* Target: " + mov.myAIPath.target.position;
+		}
+	}
+
 	private void UpdateDebug5(){
 
 		//Currently: DFA.HASACTION
 
 		if(dfa != null ){
 			debug5.text = "Statemachine hasAction: " + dfa.hasAction;
+		}
+	}
+
+	private void UpdateDebug6(){
+
+		//Currently: QLearner. RedQState Eat
+
+		if(action_GetFood != null ){
+			qLearner = action_GetFood.getQLearner();
+			debug6.text = "QState Red Eat: " + qLearner.getQEatRed();
+		}
+	}
+
+	private void UpdateDebug7(){
+
+		//Currently: QLearner. RedQState Dont Eat
+
+		if(action_GetFood != null ){
+			qLearner = action_GetFood.getQLearner();
+			debug7.text = "QState Red Dont Eat: " + qLearner.getQDontEatRed();
+		}
+	}
+
+	private void UpdateDebug8(){
+
+		//Currently: QLearner. GreenQState Eat
+
+		if(action_GetFood != null ){
+			qLearner = action_GetFood.getQLearner();
+			debug8.text = "QState Green Eat: " + qLearner.getQEatGreen();
+		}
+	}
+
+	private void UpdateDebug9(){
+
+		//Currently: QLearner. GreenQState Dont Eat
+
+		if(action_GetFood != null ){
+			qLearner = action_GetFood.getQLearner();
+			debug9.text = "QState Green Dont Eat: " + qLearner.getQDontEatGreen();
 		}
 	}
 
@@ -89,6 +148,7 @@ public class UIController : MonoBehaviour {
 
 		mov = agent.GetComponent<MovementController>();
 		dfa = agent.GetComponent<StateMachine>();
+		action_GetFood = agent.GetComponent<Action_GetFood>();
 	}
 
 	private void initializeTextFields(){
@@ -107,5 +167,17 @@ public class UIController : MonoBehaviour {
 
 		Transform text5 = this.transform.Find("Debug5");
 		debug5 = text5.GetComponent<Text>();
+
+		Transform text6 = this.transform.Find("Debug6");
+		debug6 = text6.GetComponent<Text>();
+
+		Transform text7 = this.transform.Find("Debug7");
+		debug7 = text7.GetComponent<Text>();
+
+		Transform text8 = this.transform.Find("Debug8");
+		debug8 = text8.GetComponent<Text>();
+
+		Transform text9 = this.transform.Find("Debug9");
+		debug9 = text9.GetComponent<Text>();
 	}
 }
