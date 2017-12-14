@@ -51,3 +51,9 @@ TagManager:
   - name: Character
     uniqueID: 1853671063
     locked: 0
+  - name: Buildings
+    uniqueID: 1887446745
+    locked: 0
+  - name: BuildingBackground
+    uniqueID: 2862985721
+    locked: 0

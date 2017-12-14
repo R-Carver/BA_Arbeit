@@ -26,33 +26,78 @@ public class World{
 		this.Height = Height;
 		this.food = new List<Food>();
 
-		this.theMomo = new Momo();
+		//this.theMomo = new Momo();
 		GenerateFood();
 	}
 
 	private void GenerateFood(){
 
-		//offset by one to the middle because the pathfinding grid doesnt touch the
-		//borders
-		for (var x = 1; x < Width-1; x++) {
+	
+		//Generate food such that there is plenty of cheap food in the
+		//spwan area, but sparse valuable food. The further you get out from
+		//the spawn area the less food you find in general but the bigger the
+		//chance to find valuable food
+
+		//this is in invesre proportion to the distance of the midpoint of the map
+		float foodProb;
+		Vector2 midpoint = new Vector2(Width/2, Height/2);
+		Vector2 currPoint;
+
+		//this must be equal to the biggest possible distance form a point to the midpoint
+		float probRange = Mathf.Sqrt(Mathf.Pow(Width/2, 2) + Mathf.Pow(Height/2, 2));
+
+		Debug.Log("Midpoint: " + midpoint);
+		Debug.Log("probRange: " + probRange);
+
+		for (int x = 1; x < Width-1; x++) {
 			for (int y = 1; y < Height-1; y++)
 			{	
+				
+				//Calculate the distance from the current point to the midpoint
+				currPoint = new Vector2(x, y);
+				foodProb = Mathf.Abs((midpoint - currPoint).magnitude);
 
-				if(Random.Range(0f,1f) > 0.87f)
+				float balancer = Random.Range(1f, 3f);
+
+				if(Random.Range(0f,probRange) > (foodProb * balancer))
 				{
-					//Choose random sort of generated food
-					if(Random.Range(0,2) > 0){
 
-						food.Add(new Food(x, y, 1, Food.FoodSort.green));
-					}else{
-
-						food.Add(new Food(x, y, 0, Food.FoodSort.red));
-					}
+					//dont generate food inside the spawn area
+					if(foodProb < Mathf.Sqrt(Mathf.Pow(3f/2, 2) + Mathf.Pow(3f/2, 2)))
+						continue;
 					
+					int foodValue = determineFoodValue(foodProb, probRange);
+					food.Add(new Food(x, y, foodValue));
 				}
-					
 			}
 		}
+	}
+
+	int determineFoodValue(float distanceToMid, float range){
+
+		//Use some random value to distribute the values, otherwisr
+		//it would be exactly proportional to the distance which would
+		//seem a bit to mechanic
+		float distributor = (Random.Range(0f, 2f));
+
+		float newDistance = distanceToMid * distributor;
+		float newRange = range * distributor;
+
+		//Divide the range into 3 Parts
+		if(newDistance < range * 0.33){
+
+			//generate cheap food
+			return 1;
+		
+		//0.66 is about 2/3
+		}else if(newDistance >= range * 0.33 && newDistance <= range * 0.66){
+
+			return 3;
+		}else{ 
+
+			return 5;
+		}
+
 	}
 
 	//check if the dimensions of the Astar Grid match the Width and Height values

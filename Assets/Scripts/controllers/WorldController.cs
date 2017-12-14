@@ -8,8 +8,7 @@ public class WorldController : MonoBehaviour {
 
 	public World world{get; protected set;}
 
-	public Transform redFoodPrefab;
-	public Transform greenFoodPrefab;
+	public Transform foodPrefab;
 	public Transform momoPrefab;
 
 	Dictionary<GameObject, Food> foodGameObjects;
@@ -29,7 +28,7 @@ public class WorldController : MonoBehaviour {
 		foodGameObjects = new Dictionary<GameObject, Food>();
 
 		InitFood();
-		InitMomo();
+		//InitMomo();
 	}
 	
 	// Update is called once per frame
@@ -47,13 +46,14 @@ public class WorldController : MonoBehaviour {
 		{	
 			Transform food_go;
 
-			if(food.sort == Food.FoodSort.green){
 
-				food_go = Instantiate(greenFoodPrefab, new Vector3(food.XPos, food.YPos, 0f), Quaternion.identity);
-			}else{
-
-				food_go = Instantiate(redFoodPrefab, new Vector3(food.XPos, food.YPos, 0f), Quaternion.identity);
-			}
+			food_go = Instantiate(foodPrefab, new Vector3(food.XPos, food.YPos, 0f), Quaternion.identity);
+			
+			//Adjust the color-alpha to the value of the food
+			SpriteRenderer ren = food_go.GetComponent<SpriteRenderer>();
+			Color col = Color.yellow;
+			col.a = Utility.convertValueIntoAlpha(food.getValue());
+			ren.color = col;
 			
 			//Add the newly created food to the Dictionary
 			foodGameObjects.Add(food_go.gameObject, food);

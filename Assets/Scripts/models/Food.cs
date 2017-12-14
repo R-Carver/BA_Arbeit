@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class Food{
 
-	public enum FoodSort {red, green};
+	//public enum FoodSort {red, green};
+	//public FoodSort sort{get; protected set;}
 
 	public float XPos{get; protected set;}
 	public float YPos{get; protected set;}
 
-	//FIXME: This is currently used as the reward in Q-Learning
+	//for now this is assumed to be 1, 3, or 5
 	int value;
 
-	public FoodSort sort{get; protected set;}
-
-	public Food(float x, float y, int value, FoodSort sort){
+	public Food(float x, float y, int value){
 
 		this.XPos = x;
 		this.YPos = y;
 		this.value = value;
-		this.sort = sort;
 	}
 
-	public int getReward(){
+	public int getValue(){
 
 		return this.value;
 	}
