@@ -11,11 +11,12 @@ public class World{
 
 	public List<Food> food;
 
-	Momo theMomo;
+	public static int momoCount = 3;
+	public Momo[] theMomos {get; protected set;}
 
 	public World(int Width = 30, int Height = 30){
 		
-		//FIXME This doenst currently work because the worldcontroller creates the world
+		//FIXME: This doenst currently work because the worldcontroller creates the world
 		//before the Astar grid is created
 		//Check is the dimension respect the dimensions of the Pathfinding grid
 		/*if(checkGridDimensions(Width, Height) == false){
@@ -25,13 +26,21 @@ public class World{
 		this.Width = Width;
 		this.Height = Height;
 		this.food = new List<Food>();
+		theMomos = new Momo[momoCount];
 
-		//this.theMomo = new Momo();
+		GenerateMomos();
 		GenerateFood();
 	}
 
-	private void GenerateFood(){
+	private void GenerateMomos(){
 
+		for (int i = 0; i < momoCount; i++)
+		{
+			theMomos[i] = new Momo();
+		}
+	}
+
+	private void GenerateFood(){
 	
 		//Generate food such that there is plenty of cheap food in the
 		//spwan area, but sparse valuable food. The further you get out from
@@ -57,13 +66,13 @@ public class World{
 				currPoint = new Vector2(x, y);
 				foodProb = Mathf.Abs((midpoint - currPoint).magnitude);
 
-				float balancer = Random.Range(1f, 3f);
+				float balancer = Random.Range(1f, 4f);
 
 				if(Random.Range(0f,probRange) > (foodProb * balancer))
 				{
 
 					//dont generate food inside the spawn area
-					if(foodProb < Mathf.Sqrt(Mathf.Pow(3f/2, 2) + Mathf.Pow(3f/2, 2)))
+					if(foodProb < Mathf.Sqrt(Mathf.Pow(4f/2, 2) + Mathf.Pow(4f/2, 2)))
 						continue;
 					
 					int foodValue = determineFoodValue(foodProb, probRange);

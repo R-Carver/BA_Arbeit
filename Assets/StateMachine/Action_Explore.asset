@@ -8,8 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaffa5bdab36297418ba4b18db18d0c4, type: 3}
-  m_Name: Explore
-  m_EditorClassIdentifier: 
-  actions:
-  - {fileID: 11400000, guid: f81449b7ecef9e8428a684f3803aa506, type: 2}
+  m_Script: {fileID: 11500000, guid: d63089e354b88f6438496d7c689e5b10, type: 3}
+  m_Name: Action_Explore
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolAction
+  targetThreshold: 0.4

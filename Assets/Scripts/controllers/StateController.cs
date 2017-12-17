@@ -3,6 +3,7 @@ using UnityEngine;
 public class StateController : MonoBehaviour{
 
     public State currentState;
+    public FoodFinder foodFinder {get; protected set;}
     
     [HideInInspector] public AIPath myAIPath {get; protected set;}
     [HideInInspector] public Vector3 characterPosition {get; protected set;}
@@ -12,6 +13,8 @@ public class StateController : MonoBehaviour{
 
         myAIPath = GetComponent<AIPath>();
         myAIPath.target = this.transform;
+
+        foodFinder = GetComponent<FoodFinder>();
     }
 
     void Update(){
@@ -22,7 +25,8 @@ public class StateController : MonoBehaviour{
 
     public void TransitionToState(State nextState){
 
-        //currentState.CleanUpActions(this);
+        currentState.CleanUpActions(this);
+        currentState = nextState;
     }
 
 }

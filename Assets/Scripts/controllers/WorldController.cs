@@ -10,8 +10,11 @@ public class WorldController : MonoBehaviour {
 
 	public Transform foodPrefab;
 	public Transform momoPrefab;
+	public Transform[] spawnPoints;
 
 	Dictionary<GameObject, Food> foodGameObjects;
+
+	private Queue<Transform> spawnQueue;
 
 	void OnEnable(){
 		if(Instance != null){
@@ -26,9 +29,10 @@ public class WorldController : MonoBehaviour {
 	void Start () {
 
 		foodGameObjects = new Dictionary<GameObject, Food>();
-
+		
+		InitSpawnQueue();
 		InitFood();
-		//InitMomo();
+		InitMomos();
 	}
 	
 	// Update is called once per frame
@@ -61,16 +65,42 @@ public class WorldController : MonoBehaviour {
 		}
 	}
 
-	private void InitMomo(){
+	private void InitMomos(){
 
-		Transform momo = Instantiate(momoPrefab, new Vector3(5,5,0), Quaternion.identity);
-		GameObject goMomo = momo.gameObject;
+		foreach(Momo momo in world.theMomos ){
 
-		goMomo.name = "Momo";
+			//grab the first spawn point
+			Transform currSpawnPoint = spawnQueue.Dequeue();
+
+			//Instantiate the GO
+			Transform momoTransform = Instantiate(momoPrefab, currSpawnPoint.position, Quaternion.identity);
+			GameObject goMomo = momoTransform.gameObject;
+
+			goMomo.name = "Momo";
+
+			//Enqueue the spawnPoint back to the queue so it can be reused
+			spawnQueue.Enqueue(currSpawnPoint);
+		}
+
+		
+
+		
 	}
 
 	public Food getFoodfromGo(GameObject food_go){
 
 		return foodGameObjects[food_go];
+	}
+
+	//Makes a Queue out of the spawnPoints, so they can be used and then
+	//appended back to the queue, when a new character wants to spawn
+	private void InitSpawnQueue(){
+
+		spawnQueue = new Queue<Transform>();
+
+		foreach(Transform spawnArea in spawnPoints){
+
+			spawnQueue.Enqueue(spawnArea);
+		}
 	}
 }

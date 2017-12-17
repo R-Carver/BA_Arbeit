@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 58817131903940602}
   - component: {fileID: 50808949583669880}
   - component: {fileID: 114902437572147200}
+  - component: {fileID: 114431663759697158}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -166,6 +167,20 @@ MonoBehaviour:
     tagsChange: -1
     tagsSet: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+--- !u!114 &114431663759697158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553287607214452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b0d2ed07e2e1140a2412d185edeff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionRadius: 2
+  colliders: []
+  foodTarget: {fileID: 0}
 --- !u!114 &114718683010538618
 MonoBehaviour:
   m_ObjectHideFlags: 1

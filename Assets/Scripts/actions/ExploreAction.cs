@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu (menuName = "TradingGame/Actions/Explore")]
-public class PatrolAction: Action 
+public class ExploreAction: Action 
 {   
     public float targetThreshold = 0.4f;
 
