@@ -11,7 +11,7 @@ public class World{
 
 	public List<Food> food;
 
-	public static int momoCount = 3;
+	public static int momoCount = 1;
 	public Momo[] theMomos {get; protected set;}
 
 	public World(int Width = 30, int Height = 30){

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4291802699682036}
   - component: {fileID: 212618604053774898}
   m_Layer: 0
-  m_Name: MoMo
+  m_Name: MomoVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1553287607214452}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 13.519513, y: 16.116648, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 4291802699682036}

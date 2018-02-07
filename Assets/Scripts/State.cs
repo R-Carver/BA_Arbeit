@@ -17,7 +17,7 @@ public class State : ScriptableObject
 
         for (int i = 0; i < actions.Length; i++) {
              
-             actions[i].CleanUp(ctrl);
+             //actions[i].CleanUp(ctrl);
         }
     }
 
@@ -39,7 +39,7 @@ public class State : ScriptableObject
             if(decision == true){
                 ctrl.TransitionToState(transitions[i].newState);
             }else{
-                //ctrl.TransitionToState(transitions[i].oldState);
+                ctrl.TransitionToState(transitions[i].oldState);
             }
         }
     }

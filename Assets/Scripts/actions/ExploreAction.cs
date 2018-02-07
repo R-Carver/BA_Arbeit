@@ -26,13 +26,17 @@ public class ExploreAction: Action
 
     private bool checkTargetReached(StateController controller){
 
-        //If TargetPosition - CurrentPosition < Threshold
-        if((controller.myAIPath.target.position - controller.characterPosition).magnitude < targetThreshold){
+        if(controller.myAIPath.target != null){
+            //If TargetPosition - CurrentPosition < Threshold
+            if((controller.myAIPath.target.position - controller.characterPosition).magnitude < targetThreshold){
 
-            return true;
+                return true;
+            }
+
+            return false;
         }
-
-        return false;
+        return true;
+        
     }
 
     private void SetNewDestination(StateController controller){

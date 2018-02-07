@@ -11,8 +11,12 @@ public class WorldController : MonoBehaviour {
 	public Transform foodPrefab;
 	public Transform momoPrefab;
 	public Transform[] spawnPoints;
+	public Transform tradePost;
 
 	Dictionary<GameObject, Food> foodGameObjects;
+	Dictionary<GameObject, Momo> momoGameObjects;
+	//the second dictionary is for example needed in the MomoSpriteController
+	Dictionary<Momo, GameObject> momoGameObjectMap;
 
 	private Queue<Transform> spawnQueue;
 
@@ -29,7 +33,10 @@ public class WorldController : MonoBehaviour {
 	void Start () {
 
 		foodGameObjects = new Dictionary<GameObject, Food>();
+		momoGameObjects = new Dictionary<GameObject, Momo>();
+		momoGameObjectMap = new Dictionary<Momo, GameObject>();
 		
+
 		InitSpawnQueue();
 		InitFood();
 		InitMomos();
@@ -78,19 +85,28 @@ public class WorldController : MonoBehaviour {
 
 			goMomo.name = "Momo";
 
+			momoGameObjects.Add(goMomo, momo);
+			momoGameObjectMap.Add(momo, goMomo);
+
 			//Enqueue the spawnPoint back to the queue so it can be reused
 			spawnQueue.Enqueue(currSpawnPoint);
 		}
-
-		
-
-		
 	}
 
 	public Food getFoodfromGo(GameObject food_go){
 
 		return foodGameObjects[food_go];
 	}
+
+	public Momo getMomoFromGo(GameObject momo_go){
+
+		return momoGameObjects[momo_go];
+	}
+
+	public GameObject getGoFromMomo(Momo momo){
+
+		return momoGameObjectMap[momo];
+	}	
 
 	//Makes a Queue out of the spawnPoints, so they can be used and then
 	//appended back to the queue, when a new character wants to spawn

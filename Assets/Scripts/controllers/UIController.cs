@@ -16,6 +16,8 @@ public class UIController : MonoBehaviour {
 	Text debug7;
 	Text debug8;
 	Text debug9;
+
+	StateController stateCtr;
 	
 	// Use this for initialization
 	void Start () {
@@ -24,8 +26,8 @@ public class UIController : MonoBehaviour {
 
 		//register Listeners
 
-		//Invoke("GetAgent", 0.5f);
-		//Invoke("GetScriptsForDebug", 0.5f);
+		Invoke("GetAgent", 0.5f);
+		Invoke("GetScriptsForDebug", 0.5f);
 	
 	}
 	
@@ -33,7 +35,7 @@ public class UIController : MonoBehaviour {
 	void Update () {
 		
 		//UpdateDebug1();
-		//UpdateDebug2();
+		UpdateDebug2();
 		//UpdateDebug3();
 		//UpdateDebug4();
 		//UpdateDebug5();
@@ -47,10 +49,15 @@ public class UIController : MonoBehaviour {
 
 	private void UpdateDebug1(){
 
+
 	}
 
 	private void UpdateDebug2(){
 
+		//if(stateCtr.currentState != null){
+		if(stateCtr != null){
+			debug2.text = stateCtr.currentState.ToString();
+		}
 	}
 
 	private void UpdateDebug3(){
@@ -90,6 +97,7 @@ public class UIController : MonoBehaviour {
 
 	private void GetScriptsForDebug(){
 
+		stateCtr = agent.GetComponent<StateController>();
 	}
 
 	private void initializeTextFields(){
