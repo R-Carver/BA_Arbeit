@@ -1,0 +1,6 @@
+Food Generation:
+
+There was a problem with generating the food depending on the distance from the
+center because there was far to less food on the regions far away from the center,
+so now it is generated with equal probability, it's only the value of the food that
+changes with the ditance.

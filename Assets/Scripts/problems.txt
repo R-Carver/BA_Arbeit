@@ -1,2 +1,8 @@
 07.02.2018
 Conflicting Transitions on the CollectRessource State
+
+Solution: 
+First Idea was a default state which wasnt executed because the second Idea
+was to prevent setting the old state over and over again, instead only make 
+transitions to new states, which also seems to be more natural in the context 
+of a dfa.

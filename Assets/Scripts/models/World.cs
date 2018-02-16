@@ -14,7 +14,7 @@ public class World{
 	public static int momoCount = 1;
 	public Momo[] theMomos {get; protected set;}
 
-	public World(int Width = 30, int Height = 30){
+	public World(int Width = 100, int Height = 100){
 		
 		//FIXME: This doenst currently work because the worldcontroller creates the world
 		//before the Astar grid is created
@@ -66,13 +66,16 @@ public class World{
 				currPoint = new Vector2(x, y);
 				foodProb = Mathf.Abs((midpoint - currPoint).magnitude);
 
-				float balancer = Random.Range(1f, 4f);
+				//FIXME: For now to balance the food generation adjust here
+				float balancer = Random.Range(1f, 512f);
 
-				if(Random.Range(0f,probRange) > (foodProb * balancer))
+				if(Random.Range(0f,probRange) > (/*foodProb*/1 * balancer))
 				{
 
 					//dont generate food inside the spawn area
-					if(foodProb < Mathf.Sqrt(Mathf.Pow(4f/2, 2) + Mathf.Pow(4f/2, 2)))
+					//To prevent to many ressources close to the trade Post we make the
+					//area on which no ressources will be generated bigger than the spawn area
+					if(foodProb < Mathf.Sqrt(Mathf.Pow(12f/2, 2) + Mathf.Pow(12f/2, 2)))
 						continue;
 					
 					int foodValue = determineFoodValue(foodProb, probRange);

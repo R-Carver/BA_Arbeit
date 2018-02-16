@@ -35,7 +35,7 @@ public class UIController : MonoBehaviour {
 	void Update () {
 		
 		//UpdateDebug1();
-		UpdateDebug2();
+		//UpdateDebug2();
 		//UpdateDebug3();
 		//UpdateDebug4();
 		//UpdateDebug5();

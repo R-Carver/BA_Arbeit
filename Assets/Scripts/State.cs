@@ -39,7 +39,7 @@ public class State : ScriptableObject
             if(decision == true){
                 ctrl.TransitionToState(transitions[i].newState);
             }else{
-                ctrl.TransitionToState(transitions[i].oldState);
+                //ctrl.TransitionToState(transitions[i].oldState);
             }
         }
     }
