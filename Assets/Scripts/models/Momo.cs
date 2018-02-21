@@ -14,17 +14,47 @@ public class Momo{
 	//this might change
 	Action<Momo, int> cbRessourcesChanged;
 
+	private int tradeValue = 0;
+
 	public void addNewRessource(System.Object res){
 
+		Food currentFood = null;
 		if(res.GetType() == typeof(Food)){
 
-			ressources.Add((Food)res);
+			currentFood = (Food)res;
+
+			ressources.Add((currentFood));
 			Debug.Log("I have some food");
 			if(cbRessourcesChanged != null){
 				//So far the MomoSpriteCOntroller is listening
 				cbRessourcesChanged(this, ressources.Count);
 			}
 		}
+
+		if(currentFood != null){
+
+			//add the value of the ressource to the total of this momo
+			tradeValue += currentFood.getValue();
+		}
+	}
+
+	//returns the Trade Value of this momo
+	public int SellRessources(){
+
+		int sellValue = tradeValue;
+
+		//remove the ressources
+		ressources.Clear();
+		if(cbRessourcesChanged != null){
+				//So far the MomoSpriteCOntroller is listening
+				cbRessourcesChanged(this, ressources.Count);
+		}
+
+		//set the total value to 0
+		tradeValue = 0;
+
+		//return the trade value
+		return sellValue; 
 	}
 
 	public void RegisterCbRessourcesChanged(Action<Momo, int> callbackFunc){
@@ -40,5 +70,10 @@ public class Momo{
 	public int GetRessourceCount(){
 
 		return ressources.Count;
+	}
+
+	public int getTradeValue(){
+
+		return this.tradeValue;
 	}
 }

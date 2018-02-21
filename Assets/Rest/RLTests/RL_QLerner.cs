@@ -73,7 +73,7 @@ public class RL_QLerner{
             //choose a random action from this state
             action = qState.getRandomAction();
         }
-
+        Debug.Log("Action chosen: " + action.name);
         return action;
     }
 

@@ -23,12 +23,29 @@ public class UI_RL_Controller : MonoBehaviour {
 	public Text Load_NoTarget_Trade;
 	public Text Load_NoTarget_Eat;
 
+	//States
 	public Image State_No_No;
 	public Image State_No_Target;
 	public Image State_Load_Target;
 	public Image State_Load_NoTarget;
 
+	//QStates
+	public Image qState_1_explore;
+	public Image qState_2_explore;
+	public Image qState_2_collect;
+	public Image qState_3_explore;
+	public Image qState_3_collect;
+	public Image qState_3_eat;
+	public Image qState_3_trade;
+	public Image qState_4_explore;
+	public Image qState_4_eat;
+	public Image qState_4_trade;
+
+	private Image oldBlinkState;
+	private Image currentBlinkState;
+
 	RL_QLerner qLerner;
+	Game_Util util;
 
 	RL_QState no_No;
 	RL_QState no_Target;
@@ -37,9 +54,21 @@ public class UI_RL_Controller : MonoBehaviour {
 
 	RL_State currentState;
 
+	//Timer for Blinking Animation
+	private float timer = 0.0f;
+	private float waitingTime = 1f;
+	private Color oldColor = new Color(0, 204, 204, 255);
+	private Color newColor = new Color(255, 165, 0, 255);
+	private Color tempColor;
+
 	// Use this for initialization
 	void Start () {
 		qLerner = RL_QLerner.Instance;
+		util = Game_Util.Instance;
+		Debug.Log("UI Controller: " + util.ToString());
+
+		oldBlinkState = qState_1_explore;
+		currentBlinkState = qState_1_explore;
 	}
 	
 	// Update is called once per frame
@@ -48,6 +77,7 @@ public class UI_RL_Controller : MonoBehaviour {
 		currentState = qLerner.currentState;
 		UpdateStates();
 		UpdateQStates();
+		BlinkAnimation();
 	}
 
 	private void UpdateQStates(){
@@ -79,26 +109,89 @@ public class UI_RL_Controller : MonoBehaviour {
 
 		if(currentState.name == "NoLoadNoTarget"){
 			State_No_No.color = new Color(0.4f,0.05f, 0.05f);
+			if(util.executor.currentAction.name == "explore"){
+				
+				ChangeBlinkState(qState_1_explore);
+			}
 		}else{
 			State_No_No.color = (Color)new Color32(55,66, 77,255);
 		}
 
 		if(currentState.name == "NoLoadSeeTarget"){
 			State_No_Target.color = new Color(0.4f,0.05f, 0.05f);
+			if(util.executor.currentAction.name == "explore"){
+				
+				ChangeBlinkState(qState_2_explore);
+			}else if(util.executor.currentAction.name == "collect"){
+
+				ChangeBlinkState(qState_2_collect);
+			}
 		}else{
 			State_No_Target.color = (Color)new Color32(55,66, 77,255);
 		}
 
 		if(currentState.name == "LoadTarget"){
 			State_Load_Target.color = new Color(0.4f,0.05f, 0.05f);
+			if(util.executor.currentAction.name == "explore"){
+				
+				ChangeBlinkState(qState_3_explore);
+			}else if(util.executor.currentAction.name == "eat"){
+
+				ChangeBlinkState(qState_3_eat);
+			}else if(util.executor.currentAction.name == "collect"){
+
+				ChangeBlinkState(qState_3_collect);
+			}else if(util.executor.currentAction.name == "trade"){
+				
+				ChangeBlinkState(qState_3_trade);
+			}
 		}else{
 			State_Load_Target.color = (Color)new Color32(55,66, 77,255);
 		}
 
 		if(currentState.name == "LoadNoTarget"){
 			State_Load_NoTarget.color = new Color(0.4f,0.05f, 0.05f);
+			if(util.executor.currentAction.name == "explore"){
+				
+				ChangeBlinkState(qState_4_explore);
+			}else if(util.executor.currentAction.name == "eat"){
+
+				ChangeBlinkState(qState_4_eat);
+			}else if(util.executor.currentAction.name == "trade"){
+				
+				ChangeBlinkState(qState_4_trade);
+			}
 		}else{
 			State_Load_NoTarget.color = (Color)new Color32(55,66, 77,255);
 		}
+	}
+
+	private void ChangeBlinkState(Image newState){
+
+		oldBlinkState = currentBlinkState;
+		currentBlinkState = newState;
+	}
+
+	private void BlinkAnimation(){
+
+		if(oldBlinkState != currentBlinkState){
+
+			oldBlinkState.color = new Color(0, 204, 204, 255);
+		}
+		timer += Time.deltaTime;
+		if(timer > waitingTime){
+			ChangeBlinkColor(currentBlinkState);
+			timer = 0;
+		}
+	}
+
+	private void ChangeBlinkColor(Image uiElem){
+
+		uiElem.color = newColor;
+
+		//Change the colors
+		tempColor = oldColor;
+		oldColor = newColor;
+		newColor = tempColor;
 	}
 }

@@ -21,8 +21,6 @@ public class RL_QState{
 
     public void UpdateQState(RL_Action action, RL_QState destinationState){
 
-        //FIXME: Dest State and Current State are the same
-
         //Debug.Log("Max of Destinationstate: " + destinationState.qValues.Values.Max());
         Debug.Log("Current State: " + state.name);
         Debug.Log("Destination State: " + destinationState.state.name);
