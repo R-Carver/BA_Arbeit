@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4bb8b62c1405a3b4bb31a4349d71f28c
+timeCreated: 1519734263
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: A Love of Thunder
+  fontNames:
+  - A Love of Thunder
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

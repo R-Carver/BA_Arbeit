@@ -1,19 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RL_QLerner{
-
-    private static RL_QLerner _instance;
-
-    public static RL_QLerner Instance{ 
-        get{
-            if(_instance == null){
-                _instance = new RL_QLerner();
-            }
-                
-            return _instance;
-        } 
-    }
+public class RL_QLerner : MonoBehaviour{
 
     public static float alpha = 0.5f;
 
@@ -28,10 +16,10 @@ public class RL_QLerner{
     //so now we store the names of the states 
     public Dictionary<string, RL_QState> qStateFromState;
 
-    //the current model assumes 4 QStates
-    public RL_QLerner(int numOfQStates = 4){
+    void Start(){
 
-        this.numOfQStates = numOfQStates;
+        numOfQStates = 4;
+
         states = new RL_State[numOfQStates];
         qStates = new RL_QState[numOfQStates];
 
@@ -161,7 +149,6 @@ public class RL_QLerner{
 
         //-------------------------------------------------------------------
     }
-
 
     private void InitDictionary(){
 

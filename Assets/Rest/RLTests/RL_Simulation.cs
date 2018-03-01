@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RL_Simulation : MonoBehaviour{
 
-    RL_QLerner myQLerner;
+    /*RL_QLerner myQLerner;
     RL_Simulator mySimulator;
     RL_MDP myMdp;
 
@@ -56,5 +56,5 @@ public class RL_Simulation : MonoBehaviour{
         //5) set destination state as new current state
         myQLerner.currentState = destState;
 
-    }
+    }*/
 }

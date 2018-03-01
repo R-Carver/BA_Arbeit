@@ -9,15 +9,15 @@ public class GizmoDemo : MonoBehaviour
     private LineRenderer lineDrawer;
     private float Theta = 0f;
 
-    void Start ()
+    /*void Start ()
     {       
         lineDrawer = gameObject.AddComponent<LineRenderer>();
         lineDrawer.material = new Material(Shader.Find("Particles/Additive"));
         lineDrawer.widthMultiplier = 0.03f;
 		lineDrawer.useWorldSpace = false;
-    }
+    }*/
 
-    void Update ()
+    /*void Update ()
     {      
         Theta = 0f;
         Size = (int)((1f / ThetaScale) + 1f);
@@ -28,5 +28,5 @@ public class GizmoDemo : MonoBehaviour
             float y = radius * Mathf.Sin(Theta);          
             lineDrawer.SetPosition(i, new Vector3(x, y, 0));
         }
-    }
+    }*/
 }

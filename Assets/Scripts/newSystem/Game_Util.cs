@@ -3,16 +3,6 @@ using UnityEngine;
 
 public class Game_Util : MonoBehaviour{
 
-    public static Game_Util Instance{get; protected set;}
-
-    void OnEnable(){
-        if(Instance != null){
-            Debug.LogError("There should never be more than one Game_Util object");
-        }
-
-        Instance = this;
-    }
-
     public AIPath aiPath;
     public FoodFinder foodFinder;
     public Game_Executor executor;

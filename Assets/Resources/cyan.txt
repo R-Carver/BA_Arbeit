@@ -1,0 +1,86 @@
+cyan - Momo LogFile
+StateManager CurrentState: NoLoadNoTarget
+***See 0 Food after change of state
+Have a new action: explore
+
+
+StateManager CurrentState: NoLoadSeeTarget
+***See 1 Food after change of state
+Have a new action: collect
+
+
+Next Food destination: (51.0, 40.0, 0.0)
+***See 1 Food just after choosing Food
+***See 1 Food after setting target
+Reached some food
+Food Position: (51.0, 40.0, 0.0)
+RessourceCount before: 0
+RessourceCount after: 1
+StateManager CurrentState: LoadTarget
+***See 1 Food after change of state
+Cleanup running
+StateManager CurrentState: LoadNoTarget
+***See 0 Food after change of state
+Have a new action: trade
+
+
+StateManager CurrentState: LoadTarget
+***See 1 Food after change of state
+Have a new action: trade
+
+
+StateManager CurrentState: LoadNoTarget
+***See 0 Food after change of state
+Have a new action: trade
+
+
+StateManager CurrentState: NoLoadNoTarget
+***See 0 Food after change of state
+Have a new action: explore
+
+
+StateManager CurrentState: NoLoadSeeTarget
+***See 1 Food after change of state
+Have a new action: collect
+
+
+Next Food destination: (38.0, 36.0, 0.0)
+***See 1 Food just after choosing Food
+***See 1 Food after setting target
+Reached some food
+Food Position: (38.0, 36.0, 0.0)
+RessourceCount before: 0
+RessourceCount after: 1
+StateManager CurrentState: LoadTarget
+***See 1 Food after change of state
+Cleanup running
+StateManager CurrentState: LoadNoTarget
+***See 0 Food after change of state
+Have a new action: trade
+
+
+StateManager CurrentState: LoadTarget
+***See 1 Food after change of state
+Have a new action: trade
+
+
+StateManager CurrentState: LoadNoTarget
+***See 0 Food after change of state
+Have a new action: trade
+
+
+StateManager CurrentState: LoadTarget
+***See 1 Food after change of state
+Have a new action: trade
+
+
+StateManager CurrentState: LoadNoTarget
+***See 0 Food after change of state
+Have a new action: trade
+
+
+StateManager CurrentState: NoLoadNoTarget
+***See 0 Food after change of state
+Have a new action: explore
+
+

@@ -6,3 +6,26 @@ First Idea was a default state which wasnt executed because the second Idea
 was to prevent setting the old state over and over again, instead only make 
 transitions to new states, which also seems to be more natural in the context 
 of a dfa.
+
+21.02.2018
+The Singleton Objects dont work for multiple Momos of course. So we have to
+try and give every momo its own QLearner and Util Object.
+
+Solution:
+For now all the scripts are attached to the momos as MonoBehaviours
+
+26.02.2018
+Sometimes the momos stay idle after reaching a ressource or the trade post.
+Something must be wrong with choosing the actions
+
+Solution:
+In the Reset Function of the Explore action we set the foodTarget in the foodfinder
+to null and thereby we prevent the collect action to get stuck in a loop
+
+27.02.2018
+Sometimes the momos stay idle after reaching a ressource.
+They end up in the trade acion. (Only happens to momos in state 3 or 4?)
+
+Solution:
+Need to reset something in the Trade action
+

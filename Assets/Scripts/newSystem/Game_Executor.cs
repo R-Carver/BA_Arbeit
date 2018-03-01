@@ -15,12 +15,12 @@ public class Game_Executor : MonoBehaviour{
 
     void Start(){
 
-        qLerner = RL_QLerner.Instance;
+        qLerner = GetComponent<RL_QLerner>();
 
-        action_explore = new Game_Action_Explore();
-        action_collect = new Game_Action_Collect();
-        action_trade = new Game_Action_TradeWithBase();
-        action_eat = new Game_Action_Eat();
+        action_explore = GetComponent<Game_Action_Explore>();
+        action_collect = GetComponent<Game_Action_Collect>();
+        action_trade = GetComponent<Game_Action_TradeWithBase>();
+        action_eat = GetComponent<Game_Action_Eat>();
     }
 
     void Update(){
@@ -28,6 +28,11 @@ public class Game_Executor : MonoBehaviour{
         if(hasAction == false ){
             //ResetActions();
             ChooseAction();
+
+            //TODO: Remove this
+            string message = currentAction.name;
+            LogController.Instance.AddLogMessage(this.transform.gameObject, "Have a new action: " + message);
+            LogController.Instance.AddLogMessage(this.transform.gameObject, "\n");
         }
         ExecuteAction();
         
@@ -42,6 +47,7 @@ public class Game_Executor : MonoBehaviour{
 
         if(currentAction != null){
             if(currentAction.name == "explore"){
+                //Debug.Log("<b><color=red>Calling Executor </color></b>");
                 action_explore.Act();
             }
 
@@ -79,6 +85,4 @@ public class Game_Executor : MonoBehaviour{
         }
         
     }
-
-
 }

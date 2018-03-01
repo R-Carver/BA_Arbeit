@@ -4,3 +4,15 @@ There was a problem with generating the food depending on the distance from the
 center because there was far to less food on the regions far away from the center,
 so now it is generated with equal probability, it's only the value of the food that
 changes with the ditance.
+
+QLearning Exceptions:
+The 3rd State Trade QValue (LoadTarget) is not simulated naturally by the QLearning System, but is
+always set to the same value as the 4th State QValue-Trade (LoadNoTarget).
+This is necesarry because the trade always finished in state 4 and thus the values are not 
+given to the 2nd state.
+
+
+PLAN FOR THIS ITERATION:
+
+(21.02.18)
+- Adjust the QLearning and the Balance of the ressource system 

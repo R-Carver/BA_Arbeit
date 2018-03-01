@@ -15,10 +15,13 @@ public class WorldController : MonoBehaviour {
 
 	Dictionary<GameObject, Food> foodGameObjects;
 	Dictionary<GameObject, Momo> momoGameObjects;
+	Dictionary<Momo, Transform> momoSelectioncircleMap;
 	//the second dictionary is for example needed in the MomoSpriteController
 	Dictionary<Momo, GameObject> momoGameObjectMap;
 
 	private Queue<Transform> spawnQueue;
+
+	private GameController gameController;
 
 	void OnEnable(){
 		if(Instance != null){
@@ -26,7 +29,9 @@ public class WorldController : MonoBehaviour {
 		}
 		Instance = this;
 
-		world = new World();
+		gameController = GetComponent<GameController>();
+
+		world = new World(gameController.mapWidth, gameController.mapHeight, gameController.momoCount);
 	}
 
 	// Use this for initialization
@@ -35,16 +40,34 @@ public class WorldController : MonoBehaviour {
 		foodGameObjects = new Dictionary<GameObject, Food>();
 		momoGameObjects = new Dictionary<GameObject, Momo>();
 		momoGameObjectMap = new Dictionary<Momo, GameObject>();
-		
+		momoSelectioncircleMap = new Dictionary<Momo, Transform>();
 
 		InitSpawnQueue();
 		InitFood();
 		InitMomos();
+		InitSelectionCircles();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	private void InitSelectionCircles(){
+
+		foreach(Momo momo in world.theMomos){
+
+			GameObject momoGo = getGoFromMomo(momo);
+			Transform selectionCircle = momoGo.transform.GetChild(2);
+
+			if(selectionCircle.gameObject.name != "SelectionCircle"){
+
+				Debug.Log("Something is wrong with the order of the SelectionCircle, did you add another Object as Child of the momos");
+			}else{
+
+				momoSelectioncircleMap.Add(momo, selectionCircle);
+			}
+		}
 	}
 
 	private void InitFood(){
@@ -106,6 +129,16 @@ public class WorldController : MonoBehaviour {
 	public GameObject getGoFromMomo(Momo momo){
 
 		return momoGameObjectMap[momo];
+	}
+
+	public Transform GetCircleFromMomo(Momo momo){
+
+		return momoSelectioncircleMap[momo];
+	}
+
+	public GameController GetGameController(){
+
+		return this.gameController;
 	}	
 
 	//Makes a Queue out of the spawnPoints, so they can be used and then

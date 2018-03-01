@@ -11,10 +11,10 @@ public class World{
 
 	public List<Food> food;
 
-	public static int momoCount = 1;
+	private int momoCount;
 	public Momo[] theMomos {get; protected set;}
 
-	public World(int Width = 100, int Height = 100){
+	public World(int width, int height, int momoCount){
 		
 		//FIXME: This doenst currently work because the worldcontroller creates the world
 		//before the Astar grid is created
@@ -23,9 +23,11 @@ public class World{
 			Debug.LogError("World dimensions dont match Grid dimensions");
 			return;
 		}*/
-		this.Width = Width;
-		this.Height = Height;
+		this.Width = width;
+		this.Height = height;
 		this.food = new List<Food>();
+
+		SetMomoCount(momoCount);
 		theMomos = new Momo[momoCount];
 
 		GenerateMomos();
@@ -127,5 +129,15 @@ public class World{
 			return true;
 		}*/
 		return false;
+	}
+
+	public void SetMomoCount(int number){
+
+		if(number < 1 || number > 8){
+
+			Debug.Log("Cannot set less than 1 or more than 8 Momos for now");
+		}
+		this.momoCount = number;
+		Debug.Log("MomoCount set with: " + number);
 	}
 }

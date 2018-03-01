@@ -6,6 +6,8 @@ using System;
 public class Momo{
 
 	int livePoints = 100;
+	string id;
+	public bool chosen = false;
 
 	//We use an arrayList so we can use different types of ressources
 	ArrayList ressources = new ArrayList();
@@ -14,7 +16,25 @@ public class Momo{
 	//this might change
 	Action<Momo, int> cbRessourcesChanged;
 
+	//this is the just the value of the current resources
 	private int tradeValue = 0;
+
+	//this is the value of all the money made so far
+	private int _totalTradeValue = 0;
+	public int TotalTradeValue{
+
+		get{ return _totalTradeValue;}
+		set{
+			_totalTradeValue = value;
+
+			if(cbTotalChanged != null){
+				cbTotalChanged(this);
+			}
+		}
+	}
+
+	Action<Momo> cbTotalChanged;
+	
 
 	public void addNewRessource(System.Object res){
 
@@ -45,10 +65,19 @@ public class Momo{
 
 		//remove the ressources
 		ressources.Clear();
+
+		//Update the player total
+		if(chosen == true){
+			GameController.Instance.playerTotal += sellValue;
+		}
+	
 		if(cbRessourcesChanged != null){
 				//So far the MomoSpriteCOntroller is listening
 				cbRessourcesChanged(this, ressources.Count);
 		}
+
+		//Update the total
+		TotalTradeValue += tradeValue;
 
 		//set the total value to 0
 		tradeValue = 0;
@@ -67,6 +96,16 @@ public class Momo{
 		cbRessourcesChanged -= callbackFunc;
 	}
 
+	public void RegisterCbTotalChanged(Action<Momo> callback){
+
+		cbTotalChanged += callback;
+	}
+
+	public void UnRegisterCbTotalChanged(Action<Momo> callback){
+
+		cbTotalChanged -= callback;
+	}
+
 	public int GetRessourceCount(){
 
 		return ressources.Count;
@@ -75,5 +114,19 @@ public class Momo{
 	public int getTradeValue(){
 
 		return this.tradeValue;
+	}
+
+	public void SetId(string id){
+
+		this.id = id;
+	}
+
+	public string GetId(){
+
+		if(this.id != null){
+
+			return id;
+		}
+		return null;
 	}
 }

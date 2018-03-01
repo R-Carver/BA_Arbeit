@@ -1,18 +1,19 @@
 using System;
 using UnityEngine;
 
-public class Game_Action_TradeWithBase : Game_Action_Abstract
+public class Game_Action_TradeWithBase : MonoBehaviour
 {   
     private Game_Util util;
+    private RL_QLerner qLerner;
 
     private bool onWayToTradePost = false;
 
-    public Game_Action_TradeWithBase(){
-
-        util = Game_Util.Instance;
+    void Start(){
+        util = GetComponent<Game_Util>();
+        qLerner = GetComponent<RL_QLerner>();
     }
 
-    public override void Act()
+    public void Act()
     {   
         if(onWayToTradePost == false){
 
@@ -41,9 +42,10 @@ public class Game_Action_TradeWithBase : Game_Action_Abstract
         return false;
     }
 
-    public override void Reset()
+    public void Reset()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        onWayToTradePost = false;
     }
 
     public void CleanUp(){
@@ -54,10 +56,10 @@ public class Game_Action_TradeWithBase : Game_Action_Abstract
 
         //we need 2 qStates and one action
         RL_State updateState = util.state_manager.oldState;
-        RL_QState updateQState = RL_QLerner.Instance.qStateFromState[updateState.name];
+        RL_QState updateQState = qLerner.qStateFromState[updateState.name];
 
         RL_State destState = util.state_manager.CurrentState;
-        RL_QState destQState = RL_QLerner.Instance.qStateFromState[destState.name];
+        RL_QState destQState = qLerner.qStateFromState[destState.name];
 
         RL_Action currentAction = util.executor.currentAction;
 
@@ -73,7 +75,7 @@ public class Game_Action_TradeWithBase : Game_Action_Abstract
         if(updateState.name == "LoadNoTarget"){
 
             //then get the 3rd state and set it to the same qValue
-            RL_QState state_3 = RL_QLerner.Instance.qStates[2];
+            RL_QState state_3 = qLerner.qStates[2];
             state_3.qValues[currentAction.name] = updateQState.qValues[currentAction.name];
         }
 

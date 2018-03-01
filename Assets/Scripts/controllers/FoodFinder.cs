@@ -10,5 +10,8 @@ public class FoodFinder : MonoBehaviour{
     void FixedUpdate(){
 
         colliders = Physics2D.OverlapCircleAll(this.transform.position, visionRadius, LayerMask.GetMask("BadFood"));
+
+        //TODO: Remove this
+        string message = colliders.Length.ToString();
     }
 }

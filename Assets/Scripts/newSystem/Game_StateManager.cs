@@ -5,6 +5,7 @@ public class Game_StateManager : MonoBehaviour{
 
     private Momo thisMomo;
     private FoodFinder foodFinder;
+    private Game_Util util;
 
     public RL_State oldState;
 
@@ -15,18 +16,24 @@ public class Game_StateManager : MonoBehaviour{
         set {
             oldState = _currentState;
             _currentState = value;
-            
+
             if(oldState != _currentState){
 
                 if(oldState != null){
-                Debug.Log("<b><color=teal>StateManager oldState: </color></b>" + oldState.name);
+                //Debug.Log("<b><color=teal>StateManager oldState: </color></b>" + oldState.name);
                 }
                 if(_currentState != null){
-                Debug.Log("<b><color=teal>StateManager CurrentState: </color></b>" + CurrentState.name);
+                //TODO: Remove this
+                    string message = CurrentState.name;
+                    LogController.Instance.AddLogMessage(this.transform.gameObject,"StateManager CurrentState: " + message);
+                    
+                    message = util.foodFinder.colliders.Length.ToString();
+                    LogController.Instance.AddLogMessage(this.transform.gameObject, "***See " + message + " Food after change of state");
                 }
-                Game_Util.Instance.executor.ResetActions();
-                Game_Util.Instance.executor.hasAction = false;
-                Debug.Log("GameState changed: " + CurrentState.name);
+
+                util.executor.ResetActions();
+                util.executor.hasAction = false;
+                //Debug.Log("GameState changed: " + CurrentState.name);
             }
         }
     }
@@ -36,8 +43,8 @@ public class Game_StateManager : MonoBehaviour{
 
         foodFinder = GetComponent<FoodFinder>();
         thisMomo = WorldController.Instance.getMomoFromGo(this.gameObject);
-        qLerner = RL_QLerner.Instance;
-
+        qLerner = GetComponent<RL_QLerner>();
+        util = GetComponent<Game_Util>();
     }
 
     void Update(){
